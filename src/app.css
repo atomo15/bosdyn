@@ -4,3 +4,6 @@
 .others{
     flex: 4;
 }
+.setup{
+    display: flex
+}
