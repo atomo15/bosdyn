@@ -3,6 +3,9 @@
 }
 .others{
     flex: 4;
+    align-items: center;
+    margin-left: 25%;
+    margin-top: 5%;
 }
 .setup{
     display: flex
