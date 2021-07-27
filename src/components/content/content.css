@@ -1,4 +1,17 @@
 .container{
     align-items: center;
-    margin-right: (100%)/2;
+    /*margin-right: (100%)/4;*/
+}
+.microphone-icon-container{
+    cursor: pointer;
+}
+.mymic {
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: aqua;
+}
+.stp {
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: orange;
 }

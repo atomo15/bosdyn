@@ -2,6 +2,7 @@ import React,{useRef,useState,useEffect} from 'react'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import {Mic} from '@material-ui/icons';
+import "./content.css"
 export default function Content() {
     const [placeholder, setPlaceholder] = useState('Hi');
     const [temperature, setTemp] = useState('Hi');
@@ -14,6 +15,7 @@ export default function Content() {
   
   const { transcript, resetTranscript } = useSpeechRecognition();
   const [isListening, setIsListening] = useState(false);
+  const [temp,setTempVoice]= useState('asjdwqn');
   const microphoneRef = useRef(null);
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return (
@@ -26,17 +28,38 @@ export default function Content() {
         setIsListening(true);
         microphoneRef.current.classList.add("listening");
         SpeechRecognition.startListening({
-        continuous: true,
+        continuous: true,language: 'en-US'
         });
     };
+    
     const stopHandle = () => {
         setIsListening(false);
         microphoneRef.current.classList.remove("listening");
         SpeechRecognition.stopListening();
+        if(transcript.length !== 0){
+        const contents = { transcript };
+            var statements =  contents['transcript']
+            // console.log(statements,temp)
+            if(statements!=temp){
+                setTempVoice(statements)
+            /*setTempVoice(contents);*/
+            // console.log(contents['transcript'],test)
+            const response = fetch("/speak", {
+                method: "POST",
+                headers: {
+                'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify(contents)
+                })
+                if (response.ok){
+                console.log("it worked")
+                }
+            }
+        }
     };
     const handleReset = () => {
-        stopHandle();
         resetTranscript();
+        stopHandle();
     };
   
     return (
@@ -48,13 +71,14 @@ export default function Content() {
                     ref={microphoneRef}
                     onClick={handleListing}
                     >
-                    <Mic/>
+                    <button className="mymic"><Mic/></button>
+                    
                     </div>
                     <div className="microphone-status">
-                    {isListening ? "Listening........." : "Click to start Listening"}
+                    {isListening ? "Listening........." : ""}
                     </div>
                     {isListening && (
-                    <button className="microphone-stop btn" onClick={stopHandle}>
+                    <button className="stp" onClick={stopHandle}>
                         Stop
                     </button>
                     )}
@@ -62,7 +86,7 @@ export default function Content() {
                 {transcript && (
                     <div className="microphone-result-container">
                     <div className="microphone-result-text">{transcript}</div>
-                    <button className="microphone-reset btn" onClick={handleReset}>
+                    <button className="stp" onClick={handleReset}>
                         Reset
                     </button>
                     </div>
