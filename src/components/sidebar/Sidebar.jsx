@@ -118,7 +118,7 @@ export default function sidebar() {
                             radius={60}
                             progress={battery}
                             strokeWidth={28}
-                            strokeColor="yellow"
+                            strokeColor="orange"
                             strokeLinecap="butt"
                             trackStrokeWidth={14}
                             trackStrokeLinecap="butt"
@@ -213,7 +213,7 @@ export default function sidebar() {
                             radius={60}
                             progress={temperature*2.5}
                             strokeWidth={28}
-                            strokeColor="yellow"
+                            strokeColor="orange"
                             strokeLinecap="butt"
                             trackStrokeWidth={14}
                             trackStrokeLinecap="butt"

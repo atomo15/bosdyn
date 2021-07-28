@@ -39,7 +39,8 @@ export default function Topbar() {
                     <div className="topbarIconsContainer">   
                     <CameraAltRounded/>
                     </div>
-                    <Avatar alt="Atom Thunnathorne" src="https://firebasestorage.googleapis.com/v0/b/my-bot-5849f.appspot.com/o/OoAtomoO.jpg?alt=media&token=d614ba21-7e8c-4b1a-a96e-f06f539e577f" />
+                    
+                    <Avatar alt="Atom Thunnathorne" src={process.env.PUBLIC_URL + 'OoAtomoO.jpg'}  />
                     {/* <img src="https://firebasestorage.googleapis.com/v0/b/my-bot-5849f.appspot.com/o/OoAtomoO.jpg?alt=media&token=d614ba21-7e8c-4b1a-a96e-f06f539e577f" alt=" " className="topAvatar"></img> */}
                 </div>
             </div>

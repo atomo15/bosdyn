@@ -1,6 +1,6 @@
 import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
-import Content from "./components/content/Content";
+//import Content from "./components/content/Content";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import "./app.css"
 import Home from "./Pages/Home";

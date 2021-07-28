@@ -24,6 +24,7 @@
   .sidebarList {
     list-style: none;
     padding: 5px;
+    /* width: 100%; */
   }
   
   .sidebarListItem {
