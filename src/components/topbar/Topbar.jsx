@@ -3,13 +3,15 @@ import "./topbar.css"
 import { NotificationsNone,Home,Settings,Mic,VolumeUp,Camera,CameraAltRounded } from '@material-ui/icons';
 import Avatar from '@material-ui/core/Avatar';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import {Link} from 'react-router-dom'
 
 export default function Topbar() {
     return ( 
         <div className="topbar" >
             <div className="topbarWrapper" >
                 <div className="topLeft">
-                    <span className="logo"> BOSDYN </span>
+                
+                    <span className="logo"><img src={process.env.PUBLIC_URL + 'robot.png'} height="20px" width="20px"></img> BOSDYN <img src={process.env.PUBLIC_URL + 'robot.png'} height="20px" width="20px"></img></span>
                 </div>
                 <div className="topRight">
                     <ProgressBar striped variant="success" now={40} />
@@ -25,13 +27,17 @@ export default function Topbar() {
                     <Settings/>
                     </div> */}
                     <div className="topbarIconsContainer">   
-                    <Home/>
+                        <Link to="/">
+                            <Home/>
+                        </Link>
                     </div>
                     <div className="topbarIconsContainer">   
-                    <Mic/>
+                        <Mic/>
                     </div>
-                    <div className="topbarIconsContainer">   
-                    <VolumeUp/>
+                    <div className="topbarIconsContainer">  
+                        <Link to="/audio">
+                            <VolumeUp/>
+                        </Link> 
                     </div>
                     <div className="topbarIconsContainer">   
                     <Camera/>
