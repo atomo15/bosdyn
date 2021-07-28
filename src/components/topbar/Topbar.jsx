@@ -3,6 +3,7 @@ import "./topbar.css"
 import { NotificationsNone,Home,Settings,Mic,VolumeUp,Camera,CameraAltRounded } from '@material-ui/icons';
 import Avatar from '@material-ui/core/Avatar';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+
 export default function Topbar() {
     return ( 
         <div className="topbar" >

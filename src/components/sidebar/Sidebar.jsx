@@ -1,7 +1,8 @@
 
 // import ProgressBar from 'react-bootstrap/ProgressBar'
 import ProgressBar from 'react-customizable-progressbar'
-import Alert from 'react-bootstrap/Alert'
+
+import { Alert } from '@material-ui/lab';
 import { LineStyle, Timeline, TrendingUp, Home, BatteryFull, Wifi, Extension} from "@material-ui/icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRobot, faTemperatureHigh } from '@fortawesome/free-solid-svg-icons'
@@ -44,52 +45,59 @@ export default function sidebar() {
                         {/* <li className="sidebarListItem">
                             <Timeline className="sidebarIcon"/>Analytics    
                         </li> */}
+                        <br></br>
                         <li >
                             <Wifi className="sidebarIcon"/><span>&nbsp;</span>WIFI
                         </li>
+                        <br></br>
                         <li>
                             { wifi_status !== "" &&
-                            <Alert variant="success">
+                            <Alert variant="outlined" severity="success">
                                 Connected to {wifi_status}
                             </Alert>}
                             { wifi_status === "" &&
-                            <Alert variant="warning">
+                            <Alert variant="outlined" severity="error">
                                 No Connection
                             </Alert>}
                         </li>
+                        <br></br>
                         <li>
                             <FontAwesomeIcon icon={faRobot} /><span>&nbsp;</span>SPOT
                         </li>
+                        <br></br>
                         <li >
                             {spot_status === true &&
-                            <Alert variant="success">
+                            <Alert variant="outlined" severity="success">
                                 Connected
                             </Alert>}
                             {spot_status === false &&
-                            <Alert variant="danger">
+                            <Alert variant="outlined" severity="error">
                                 No Connection
                             </Alert>}
                         </li>
+                        <br></br>
                         <li>
                             <Extension className="sidebarIcon"/>Payload
                         </li>
+                        <br></br>
                         <li >
                             {payload_status === true &&
-                            <Alert variant="success">
+                            <Alert variant="outlined" severity="success">
                                 Connected
                             </Alert>}
                             {payload_status === false &&
-                            <Alert variant="danger">
+                            <Alert variant="outlined" severity="error">
                                 No Connection
                             </Alert>}
                         </li>
+                        <br></br>
                         <li>
                             <BatteryFull className="sidebarIcon"/>Battery    
                         </li>
                         <li >
                             {battery >= 80 &&
                             <ProgressBar
-                                radius={100}
+                                radius={60}
                                 progress={battery}
                                 strokeWidth={28}
                                 strokeColor="green"
@@ -107,7 +115,7 @@ export default function sidebar() {
                             </ProgressBar>}
                             {battery < 80 && battery >30 &&
                             <ProgressBar
-                            radius={100}
+                            radius={60}
                             progress={battery}
                             strokeWidth={28}
                             strokeColor="yellow"
@@ -125,7 +133,7 @@ export default function sidebar() {
                             </ProgressBar>}
                             {battery < 30 && battery >0 &&
                             <ProgressBar
-                            radius={100}
+                            radius={60}
                             progress={battery}
                             strokeWidth={28}
                             strokeColor="red"
@@ -143,7 +151,7 @@ export default function sidebar() {
                             </ProgressBar>}
                             {battery < 0 &&
                             <ProgressBar
-                            radius={100}
+                            radius={60}
                             progress={100}
                             strokeWidth={28}
                             strokeColor="aqua"
@@ -166,7 +174,7 @@ export default function sidebar() {
                         <li >
                             {temperature < 0 &&
                             <ProgressBar
-                            radius={100}
+                            radius={60}
                             progress={100}
                             strokeWidth={28}
                             strokeColor="aqua"
@@ -184,7 +192,7 @@ export default function sidebar() {
                             </ProgressBar>}
                             {temperature <= 34 && temperature>0&&
                             <ProgressBar
-                            radius={100}
+                            radius={60}
                             progress={temperature*2}
                             strokeWidth={28}
                             strokeColor="green"
@@ -202,7 +210,7 @@ export default function sidebar() {
                             </ProgressBar>}
                             {temperature > 34 && temperature<37&&
                             <ProgressBar
-                            radius={100}
+                            radius={60}
                             progress={temperature*2.5}
                             strokeWidth={28}
                             strokeColor="yellow"
@@ -220,7 +228,7 @@ export default function sidebar() {
                             </ProgressBar>}
                             {temperature >= 37 &&
                             <ProgressBar
-                            radius={100}
+                            radius={60}
                             progress={temperature*2.5}
                             strokeWidth={28}
                             strokeColor="red"
