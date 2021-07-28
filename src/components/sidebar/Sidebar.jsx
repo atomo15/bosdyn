@@ -1,7 +1,8 @@
 
-import ProgressBar from 'react-bootstrap/ProgressBar'
+// import ProgressBar from 'react-bootstrap/ProgressBar'
+import ProgressBar from 'react-customizable-progressbar'
 import Alert from 'react-bootstrap/Alert'
-import { LineStyle, Timeline, TrendingUp, Home, BatteryFull, Wifi } from "@material-ui/icons"
+import { LineStyle, Timeline, TrendingUp, Home, BatteryFull, Wifi, Extension} from "@material-ui/icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRobot, faTemperatureHigh } from '@fortawesome/free-solid-svg-icons'
 import React,{ useEffect} from 'react'
@@ -16,28 +17,30 @@ export default function sidebar() {
         const [temperature, setTemp] = useState('0');
         const [spot_status, setSpotStatus] = useState(false);
         const [wifi, setWifi] = useState("");
+        const [payload, setPayload] = useState(false);
         useEffect(() => {
             fetch('/api').then(res => res.json()).then(data => {
                 setBattery(data.battery);setTemp(data.temperature);setSpotStatus(data.spot);
-                setWifi(data.wifi);
+                setWifi(data.wifi);setPayload(data.payload);
             });
           }, []);
-        const result = [battery,temperature,spot_status,wifi]
+        const result = [battery,temperature,spot_status,wifi,payload]
         return result
       }
     const battery = GetInfo()[0];
     const temperature = GetInfo()[1];
     const spot_status = GetInfo()[2];
     const wifi_status = GetInfo()[3];
+    const payload_status = GetInfo()[4];
     return (
         <div className="sidebar">
             <div className="sidebarWrapper">
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Dashboard</h3>
                     <ul className="sidebarList">
-                        <li className="sidebarListItem active">
+                        {/* <li className="sidebarListItem active">
                             <Home className="sidebarIcon"/>HOME    
-                        </li>
+                        </li> */}
                         {/* <li className="sidebarListItem">
                             <Timeline className="sidebarIcon"/>Analytics    
                         </li> */}
@@ -68,31 +71,173 @@ export default function sidebar() {
                             </Alert>}
                         </li>
                         <li>
+                            <Extension className="sidebarIcon"/>Payload
+                        </li>
+                        <li >
+                            {payload_status === true &&
+                            <Alert variant="success">
+                                Connected
+                            </Alert>}
+                            {payload_status === false &&
+                            <Alert variant="danger">
+                                No Connection
+                            </Alert>}
+                        </li>
+                        <li>
                             <BatteryFull className="sidebarIcon"/>Battery    
                         </li>
                         <li >
                             {battery >= 80 &&
-                            <ProgressBar variant="success" animated now={battery} label={battery+'%'} maxLength={100}/>}
+                            <ProgressBar
+                                radius={100}
+                                progress={battery}
+                                strokeWidth={28}
+                                strokeColor="green"
+                                strokeLinecap="butt"
+                                trackStrokeWidth={14}
+                                trackStrokeLinecap="butt"
+                                initialAnimation="true"
+                                initialAnimationDelay = {100}
+                                cut={120}
+                                rotate={-210}
+                            >
+                                <div className="indicator">
+                                    <div>{battery}%</div>
+                                </div>
+                            </ProgressBar>}
                             {battery < 80 && battery >30 &&
-                            <ProgressBar variant="warning"  animated now={battery} label={battery+' %'} max={100}/>}
+                            <ProgressBar
+                            radius={100}
+                            progress={battery}
+                            strokeWidth={28}
+                            strokeColor="yellow"
+                            strokeLinecap="butt"
+                            trackStrokeWidth={14}
+                            trackStrokeLinecap="butt"
+                            initialAnimation="true"
+                            initialAnimationDelay = {100}
+                            cut={120}
+                            rotate={-210}
+                            >
+                                <div className="indicator">
+                                    <div>{battery}%</div>
+                                </div>
+                            </ProgressBar>}
                             {battery < 30 && battery >0 &&
-                            <ProgressBar variant="danger"  animated now={battery} label={battery+' %'} max={100}/>}
+                            <ProgressBar
+                            radius={100}
+                            progress={battery}
+                            strokeWidth={28}
+                            strokeColor="red"
+                            strokeLinecap="butt"
+                            trackStrokeWidth={14}
+                            trackStrokeLinecap="butt"
+                            initialAnimation="true"
+                            initialAnimationDelay = {100}
+                            cut={120}
+                            rotate={-210}
+                            >
+                                <div className="indicator">
+                                    <div>{battery}%</div>
+                                </div>
+                            </ProgressBar>}
                             {battery < 0 &&
-                            <ProgressBar variant="info"  animated now={100} label={'N/A %'} max={100}/>}
+                            <ProgressBar
+                            radius={100}
+                            progress={100}
+                            strokeWidth={28}
+                            strokeColor="aqua"
+                            strokeLinecap="butt"
+                            trackStrokeWidth={14}
+                            trackStrokeLinecap="butt"
+                            initialAnimation="true"
+                            initialAnimationDelay = {100}
+                            cut={120}
+                            rotate={-210}
+                            >
+                                <div className="indicator">
+                                    <div> N/A %</div>
+                                </div>
+                            </ProgressBar>}
                         </li>
                         <li>
                             <span>&nbsp;</span><FontAwesomeIcon icon={faTemperatureHigh}/><span>&nbsp;</span>Temperature    
                         </li>
                         <li >
                             {temperature < 0 &&
-                            <ProgressBar variant="info"  animated now={40} label={'N/A °'} min={30} max={40}/>}
+                            <ProgressBar
+                            radius={100}
+                            progress={100}
+                            strokeWidth={28}
+                            strokeColor="aqua"
+                            strokeLinecap="butt"
+                            trackStrokeWidth={14}
+                            trackStrokeLinecap="butt"
+                            initialAnimation="true"
+                            initialAnimationDelay = {100}
+                            cut={120}
+                            rotate={-210}
+                            >
+                                <div className="indicator">
+                                    <div> N/A °</div>
+                                </div>
+                            </ProgressBar>}
                             {temperature <= 34 && temperature>0&&
-                            <ProgressBar variant="success"  animated now={temperature} label={temperature+' °'} min={30} max={40}/>}
+                            <ProgressBar
+                            radius={100}
+                            progress={temperature*2}
+                            strokeWidth={28}
+                            strokeColor="green"
+                            strokeLinecap="butt"
+                            trackStrokeWidth={14}
+                            trackStrokeLinecap="butt"
+                            initialAnimation="true"
+                            initialAnimationDelay = {100}
+                            cut={120}
+                            rotate={-210}
+                            >
+                                <div className="indicator">
+                                    <div>{temperature} °</div>
+                                </div>
+                            </ProgressBar>}
                             {temperature > 34 && temperature<37&&
-                            <ProgressBar variant="warning"  animated now={temperature} label={temperature+' °'} min={30} max={40}/>}
+                            <ProgressBar
+                            radius={100}
+                            progress={temperature*2.5}
+                            strokeWidth={28}
+                            strokeColor="yellow"
+                            strokeLinecap="butt"
+                            trackStrokeWidth={14}
+                            trackStrokeLinecap="butt"
+                            initialAnimation="true"
+                            initialAnimationDelay = {100}
+                            cut={120}
+                            rotate={-210}
+                            >
+                                <div className="indicator">
+                                    <div>{temperature} °</div>
+                                </div>
+                            </ProgressBar>}
                             {temperature >= 37 &&
-                            <ProgressBar variant="danger"  animated now={temperature} label={temperature+' °'} min={30} max={40}/>}
+                            <ProgressBar
+                            radius={100}
+                            progress={temperature*2.5}
+                            strokeWidth={28}
+                            strokeColor="red"
+                            strokeLinecap="butt"
+                            trackStrokeWidth={14}
+                            trackStrokeLinecap="butt"
+                            initialAnimation="true"
+                            initialAnimationDelay = {100}
+                            cut={120}
+                            rotate={-210}
+                            >
+                                <div className="indicator">
+                                    <div>{temperature} °</div>
+                                </div>
+                            </ProgressBar>}
                         </li>
+                        
                     </ul>
                     {/* <h3 className="sidebarTitle">Quick Menu</h3>
                     <ul className="sidebarList">

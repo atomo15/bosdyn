@@ -1,8 +1,9 @@
 import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
 import Content from "./components/content/Content";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import "./app.css"
+import Home from "./Pages/Home";
 
 function App() {
     
@@ -11,9 +12,7 @@ function App() {
             <Topbar/>
             <div className="container">
                 <Sidebar/>
-                <div className="others">
-                    <Content/>
-                </div>
+                <Home />
             </div>
         </div>
     );

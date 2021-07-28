@@ -2,6 +2,9 @@ import React,{useRef,useState,useEffect} from 'react'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import {Mic} from '@material-ui/icons';
+import useSound from 'use-sound';
+import ReactHowler from 'react-howler'
+import Select from 'react-select'
 import "./content.css"
 export default function Content() {
     const [placeholder, setPlaceholder] = useState('Hi');
@@ -58,13 +61,21 @@ export default function Content() {
         }
     };
     const handleReset = () => {
-        resetTranscript();
         stopHandle();
+        resetTranscript();
     };
+    
+    const options = [
+        { value: 'EN', label: 'EN' },
+        { value: 'TH', label: 'TH' },
+      ]
   
     return (
         <div className="container">
+            <Select id="select_id" defaultValue={options[0]} className="myselect" width="1500px" options={options} />
+            {/* <span>&nbsp;&nbsp;&nbsp;{document.getElementById('select_id')!="" && <span>{document.getElementById('select_id')}</span>}</span> */}
             <div className="microphone-wrapper">
+                Speaker
                 <div className="mircophone-container">
                     <div
                     className="microphone-icon-container"
@@ -91,7 +102,11 @@ export default function Content() {
                     </button>
                     </div>
                 )}
+                {/* {transcript === "" && !isListening && 
+                    <ReactHowler src='spot_real_time.mp3' playing={true}/>
+                } */}
                 </div>
             </div>
+            
     )
 }

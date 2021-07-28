@@ -1,6 +1,6 @@
 import React from 'react'
 import "./topbar.css"
-import { NotificationsNone,Language,Settings,Mic,VolumeUp,Camera,CameraAltRounded } from '@material-ui/icons';
+import { NotificationsNone,Home,Settings,Mic,VolumeUp,Camera,CameraAltRounded } from '@material-ui/icons';
 import Avatar from '@material-ui/core/Avatar';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 export default function Topbar() {
@@ -23,6 +23,9 @@ export default function Topbar() {
                     {/* <div className="topbarIconsContainer">   
                     <Settings/>
                     </div> */}
+                    <div className="topbarIconsContainer">   
+                    <Home/>
+                    </div>
                     <div className="topbarIconsContainer">   
                     <Mic/>
                     </div>
