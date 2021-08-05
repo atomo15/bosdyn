@@ -3,7 +3,7 @@
 import ProgressBar from 'react-customizable-progressbar'
 
 import { Alert } from '@material-ui/lab';
-import { LineStyle, Timeline, TrendingUp, Home, BatteryFull, Wifi, Extension} from "@material-ui/icons"
+import { BatteryFull, Wifi, Extension} from "@material-ui/icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRobot, faTemperatureHigh } from '@fortawesome/free-solid-svg-icons'
 import React,{ useEffect} from 'react'
@@ -151,7 +151,7 @@ export default function sidebar() {
                             </ProgressBar>}
                             {battery < 0 &&
                             <ProgressBar
-                            radius={60}
+                            radius={70}
                             progress={100}
                             strokeWidth={28}
                             strokeColor="aqua"
@@ -164,7 +164,7 @@ export default function sidebar() {
                             rotate={-210}
                             >
                                 <div className="indicator">
-                                    <div> N/A %</div>
+                                    <div> N/A% </div>
                                 </div>
                             </ProgressBar>}
                         </li>
@@ -174,7 +174,7 @@ export default function sidebar() {
                         <li >
                             {temperature < 0 &&
                             <ProgressBar
-                            radius={60}
+                            radius={70}
                             progress={100}
                             strokeWidth={28}
                             strokeColor="aqua"
@@ -187,7 +187,7 @@ export default function sidebar() {
                             rotate={-210}
                             >
                                 <div className="indicator">
-                                    <div> N/A °</div>
+                                    <div> N/A° </div>
                                 </div>
                             </ProgressBar>}
                             {temperature <= 34 && temperature>0&&

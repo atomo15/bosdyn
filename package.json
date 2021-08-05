@@ -26,6 +26,7 @@
     "react-dropdown": "^1.9.2",
     "react-howler": "^5.2.0",
     "react-icons": "^4.2.0",
+    "react-play": "^1.0.0",
     "react-player": "^2.9.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

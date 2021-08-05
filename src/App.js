@@ -5,6 +5,7 @@ import Topbar from "./components/topbar/Topbar";
 import "./app.css"
 import Home from "./Pages/home/Home";
 import Audio from "./Pages/audio/Audio"
+import Mic from "./Pages/mic/Mic"
 import {
     BrowserRouter as Router,
     Switch,
@@ -23,8 +24,11 @@ function App() {
                     <Route exact path="/">
                         <Home />
                     </Route>
-                    <Route path="/audio">
+                    <Route exact path="/audio">
                         <Audio />
+                    </Route>
+                    <Route exact path="/content">
+                        <Mic />
                     </Route>
                 </Switch>
             </div>

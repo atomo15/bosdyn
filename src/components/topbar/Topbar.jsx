@@ -10,8 +10,9 @@ export default function Topbar() {
         <div className="topbar" >
             <div className="topbarWrapper" >
                 <div className="topLeft">
-                
+                    <Link to="/">
                     <span className="logo"><img src={process.env.PUBLIC_URL + 'robot.png'} height="20px" width="20px"></img> BOSDYN <img src={process.env.PUBLIC_URL + 'robot.png'} height="20px" width="20px"></img></span>
+                    </Link>
                 </div>
                 <div className="topRight">
                     <ProgressBar striped variant="success" now={40} />
@@ -32,7 +33,9 @@ export default function Topbar() {
                         </Link>
                     </div>
                     <div className="topbarIconsContainer">   
-                        <Mic/>
+                        <Link to="/content">
+                            <Mic/>
+                        </Link> 
                     </div>
                     <div className="topbarIconsContainer">  
                         <Link to="/audio">
