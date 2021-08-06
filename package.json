@@ -2,7 +2,7 @@
   "name": "bosdyn",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:5000",
+  "proxy": "http://4e199e8d4ba3.ngrok.io",
   "dependencies": {
     "@deadcoder0904/react-typical": "^0.1.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

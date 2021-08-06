@@ -68,3 +68,18 @@
 .setup{
     margin-bottom: 0;
 }
+
+@media screen and (max-width: 720px) {
+    .logo{
+        font-weight: bold;
+        font-size: 20px;
+        color: rgb(6, 56, 90);
+        cursor: pointer;
+        background-color: cyan;
+        border-radius: 20%;
+        -webkit-border-radius: 20%;
+        -moz-border-radius: 20%;
+        -ms-border-radius: 20%;
+        -o-border-radius: 20%;
+    }
+}

@@ -1,5 +1,5 @@
 import React,{useRef,useState,useEffect} from 'react'
-import ProgressBar from 'react-bootstrap/ProgressBar'
+//import ProgressBar from 'react-bootstrap/ProgressBar'
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import {Mic} from '@material-ui/icons';
 import useSound from 'use-sound';
