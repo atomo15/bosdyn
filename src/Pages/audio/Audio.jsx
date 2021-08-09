@@ -44,7 +44,7 @@ const columns = [
     field: 'Duration',
     headerName: 'Duration',
     width: 140,
-    editable: true,
+    editable: false,
     // type: 'number',
   },
   {
@@ -87,6 +87,13 @@ const columns = [
     //         </Button> 
     //     )
     // }
+  },{
+    field: 'Content',
+    headerName: 'Content',
+    width: 140,
+    editable: false,
+    sortable: false,
+    // type: 'number',
   },
 ];
 
@@ -135,7 +142,7 @@ export default function Audio()  {
     
     
     return (
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: '40vh', width: '100%' }}>
             <br></br>
             <center>
                 <h1 style={{color:'navy'}}><ReactTypical

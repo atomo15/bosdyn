@@ -72,10 +72,15 @@ export default function Content() {
   
     return (
         <div className="container">
-            <Select id="select_id" defaultValue={options[0]} className="myselect" width="1500px" options={options} />
+            {/* <Select id="select_id" defaultValue={options[0]} className="myselect" width="1500px" options={options} /> */}
             {/* <span>&nbsp;&nbsp;&nbsp;{document.getElementById('select_id')!="" && <span>{document.getElementById('select_id')}</span>}</span> */}
+            
             <div className="microphone-wrapper">
-                Speaker
+                <center>
+                <div style={{color:'white',fontSize:'30px'}}>Speaker</div>
+                </center>
+                <br></br>
+                <center>
                 <div className="mircophone-container">
                     <div
                     className="microphone-icon-container"
@@ -83,20 +88,26 @@ export default function Content() {
                     onClick={handleListing}
                     >
                     <button className="mymic"><Mic/></button>
-                    
+                    <br></br>
                     </div>
                     <div className="microphone-status">
-                    {isListening ? "Listening........." : ""}
+                        <div style={{color:'white',fontSize:'20px'}}>
+                        {isListening ? "Listening........." : ""}
+                        </div>
                     </div>
+                    <br></br>
                     {isListening && (
                     <button className="stp" onClick={stopHandle}>
                         Stop
                     </button>
                     )}
+                    <br></br>
                 </div>
                 {transcript && (
                     <div className="microphone-result-container">
+                    <br></br>
                     <div className="microphone-result-text">{transcript}</div>
+                    <br></br>
                     <button className="stp" onClick={handleReset}>
                         Reset
                     </button>
@@ -105,7 +116,9 @@ export default function Content() {
                 {/* {transcript === "" && !isListening && 
                     <ReactHowler src='spot_real_time.mp3' playing={true}/>
                 } */}
+                </center>
                 </div>
+                
             </div>
             
     )

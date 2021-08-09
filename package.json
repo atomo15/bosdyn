@@ -2,7 +2,7 @@
   "name": "bosdyn",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://4e199e8d4ba3.ngrok.io",
+  "proxy": "http://127.0.0.1:5000/",
   "dependencies": {
     "@deadcoder0904/react-typical": "^0.1.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -63,6 +63,7 @@
   "devDependencies": {
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "http-proxy-middleware": "^0.19.1"
   }
 }

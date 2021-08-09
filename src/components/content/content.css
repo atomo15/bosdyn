@@ -1,8 +1,12 @@
-/* .container{
-    align-items: center; */
+.container{
+    align-items: center; 
+    justify-content: center;
     /*margin-right: (100%)/4;*/
-/* } */
-/* .microphone-icon-container{
+ }
+ .microphone-result-text{
+     color: white;
+ }
+ .microphone-icon-container{
     cursor: pointer;
 }
 .mymic {
@@ -10,6 +14,11 @@
     cursor: pointer;
     background-color: aqua;
 }
+.microphone-wrapper{
+    justify-content: center;
+    width: 100%;
+}
+/*
 .stp {
     border-radius: 50%;
     cursor: pointer;

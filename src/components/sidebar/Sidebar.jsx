@@ -194,6 +194,7 @@ export default function sidebar() {
                             <span>&nbsp;</span><FontAwesomeIcon icon={faTemperatureHigh}/><span>&nbsp;</span>Temperature    
                         </li>
                         <li >
+                            <center>
                             {temperature < 0 &&
                             <ProgressBar
                             radius={wna}
@@ -266,45 +267,10 @@ export default function sidebar() {
                                     <div>{temperature} °</div>
                                 </div>
                             </ProgressBar>}
+                            </center>
                         </li>
                         
                     </ul>
-                    {/* <h3 className="sidebarTitle">Quick Menu</h3>
-                    <ul className="sidebarList">
-                        <li className="sidebarListItem">
-                            <LineStyle/>HOME    
-                        </li>
-                        <li className="sidebarListItem">
-                            <Timeline/>Analytics    
-                        </li>
-                        <li className="sidebarListItem">
-                            <TrendingUp/>Sales    
-                        </li>
-                    </ul>
-                    <h3 className="sidebarTitle">Notifications</h3>
-                    <ul className="sidebarList">
-                        <li className="sidebarListItem">
-                            <LineStyle/>HOME    
-                        </li>
-                        <li className="sidebarListItem">
-                            <Timeline/>Analytics    
-                        </li>
-                        <li className="sidebarListItem">
-                            <TrendingUp/>Sales    
-                        </li>
-                    </ul>
-                    <h3 className="sidebarTitle">Staff </h3>
-                    <ul className="sidebarList">
-                        <li className="sidebarListItem">
-                            <LineStyle/>HOME    
-                        </li>
-                        <li className="sidebarListItem">
-                            <Timeline/>Analytics    
-                        </li>
-                        <li className="sidebarListItem">
-                            <TrendingUp/>Sales    
-                        </li>
-                    </ul> */}
                 </div>
             </div>
         </div>
