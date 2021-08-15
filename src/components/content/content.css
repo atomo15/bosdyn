@@ -1,6 +1,7 @@
 .container{
     align-items: center; 
     justify-content: center;
+    margin-top: 20px;
     /*margin-right: (100%)/4;*/
  }
  .microphone-result-text{
@@ -18,12 +19,9 @@
     justify-content: center;
     width: 100%;
 }
-/*
-.stp {
-    border-radius: 50%;
-    cursor: pointer;
-    background-color: orange;
+#row {
+    justify-content: center;
 }
-.myselect{
-    width:15%;
-} */
+.MuiInputBase-input {
+    color: white;        
+}

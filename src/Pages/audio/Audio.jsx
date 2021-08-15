@@ -6,6 +6,41 @@ import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 import { useState }  from "react"
 import { ReactTypical } from '@deadcoder0904/react-typical'
 import useSound from 'use-sound';
+import { Component } from 'react';
+import { Howl } from 'howler';
+
+class App extends Component {
+  soundPlay = (src) => {
+  const sound = new Howl({
+    src,
+    html5: true
+  })
+  sound.play();
+  }
+  
+  RenderButtonSound = (audioClips) =>{
+    return audioClips.map((soundObj,index)=>{
+      return(
+        <Button variant="contained" color="default" startIcon={<PlayCircleFilledWhiteIcon />} key={index} onClick={()=>this.soundPlay(soundObj.sound)}>
+          {soundObj.label}
+        </Button>
+      )
+    }
+    )
+  }
+  RenderButtonSoundByFile = (audioClips,i) =>{
+    return audioClips.map((soundObj,index)=>{
+      if(index==i){
+      return(
+        <Button variant="contained" color="default" startIcon={<PlayCircleFilledWhiteIcon />} key={index} onClick={()=>this.soundPlay(soundObj.sound)}>
+          {soundObj.label}
+        </Button>
+      )}
+    }
+    )
+  }
+}
+
 function GetInfo() {
     const [wavelist, setWaveList] = useState([]);
     const [durationlist, setDurationList] = useState([]);
@@ -20,11 +55,37 @@ function GetInfo() {
     return result
   }
 
-  const ButtonFormatter = ({ value }) => {
-    //{ value }
-    //return <ProgressBar now={value} label={`${value}%`} />;
-    return <Button variant="contained" color="default"startIcon={<PlayCircleFilledWhiteIcon />}>Play</Button>; 
+  const ButtonFormatter = ({i}) => {
+    console.log(i)
+    // return audioClips.map((soundObj,index)=>{
+    //   if(index==i){
+    //   return(
+    //     <Button variant="contained" color="default" startIcon={<PlayCircleFilledWhiteIcon />} key={index} onClick={()=>this.soundPlay(soundObj.sound)}>
+    //       {soundObj.label}
+    //     </Button>
+    //   )}
+    // }
+    // )
   };
+
+  
+  function playz(audioClips,i){
+    const a = new App();
+    return audioClips.map((soundObj,index)=>{
+      if(index==i)
+        {
+          a.soundPlay(soundObj.sound)
+        //   console.log(soundObj,index)
+        // return
+        //   (
+        //     console.log(soundObj,index)
+        //   //a.soundPlay(soundObj.sound)
+        //   //this.soundPlay(soundObj.sound)
+        //   )
+        }
+    }
+    )
+  }
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 120 },
@@ -71,22 +132,22 @@ const columns = [
     sortable: false,
     width: 180,
     editable: false,
-    renderCell: ButtonFormatter
+    // renderCell: ButtonFormatter
     // valueGetter: (params) =>
     //   `${params.getValue(params.id, 'SoundList') || ''} ${
     //     params.getValue(params.id, 'FileName') || ''
-    //   }`,
-    // renderCell: (params) => {
-    //     return (
-    //         <Button
-    //         variant="contained"
-    //         color="default"
-    //         startIcon={<PlayCircleFilledWhiteIcon />}
-    //         >
-    //         Play
-    //         </Button> 
-    //     )
-    // }
+    // //   }`,
+    renderCell: (params) => {
+        return (
+            <Button
+            variant="contained"
+            color="default"
+            startIcon={<PlayCircleFilledWhiteIcon />}
+            >
+              Play
+            </Button>
+            )
+    }
   },{
     field: 'Content',
     headerName: 'Content',
@@ -97,6 +158,16 @@ const columns = [
   },
 ];
 
+function Play_sounds(value){
+  console.log(value)
+  const [play] = useSound(process.env.PUBLIC_URL + value);
+  play();
+};
+
+// const audioClips = [
+//   {sound: process.env.PUBLIC_URL + 'autonomous_robot_en.wav',label:'autonomous_robot_en'},
+//   {sound: process.env.PUBLIC_URL + 'spot_real_time.wav',label:'spot_real_time'}]
+
 
 
 export default function Audio()  {
@@ -104,15 +175,28 @@ export default function Audio()  {
     const list_duration = GetInfo()[1]
     var rows = []
     var test_sounds = []
-    const [play] = useSound(process.env.PUBLIC_URL + 'spot_real_time.wav');
-    const [play2] = useSound(process.env.PUBLIC_URL + 'autonomous_robot_en.wav');
-    test_sounds.push(play)
-    test_sounds.push(play2)
+    
+    var audioClips = []
+    list_wave.map((item,index)=>{
+      audioClips.push({sound: process.env.PUBLIC_URL + item,label:item})
+    })
+    // const audioClips = [
+    //   {sound: process.env.PUBLIC_URL + 'autonomous_robot_en.wav',label:'autonomous_robot_en'},
+    //   {sound: process.env.PUBLIC_URL + 'spot_real_time.wav',label:'spot_real_time'}]
+    
+    
+    //console.log(list_wave)
+    //const [play] = useSound(process.env.PUBLIC_URL + list_wave);
+  
+    //const [play2] = useSound(process.env.PUBLIC_URL + 'autonomous_robot_en.wav');
+    //test_sounds.push(play)
+    
+    //test_sounds.push(play2)
+    
     // test_sounds.map((i,index)=> {
     //   if(index==1)
     //   {i();}
     // })
-    const list = list_wave
     
     function Play_sound(value){
       const [playing] = useSound(process.env.PUBLIC_URL + value);
@@ -131,9 +215,9 @@ export default function Audio()  {
     //   const [temp_play] = useSound(process.env.PUBLIC_URL + item);
     //   test_sounds.push(temp_play)
     // })
-   
+    const a = new App();
     list_wave.map((item,index)=>{
-        rows.push({ id: index+1, FileName: item , SoundList: item.split('.')[0], Duration: list_duration[index], Action: 'Playing', Sounds:item})
+        rows.push({ id: index+1, FileName: item , SoundList: item.split('.')[0], Duration: list_duration[index], Action: 'Playing', Sounds:a.RenderButtonSoundByFile(audioClips,index)})
     })
     
     
@@ -142,7 +226,7 @@ export default function Audio()  {
     
     
     return (
-        <div style={{ height: '40vh', width: '100%' }}>
+        <div style={{ height: '50vh', width: '100%' }}>
             <br></br>
             <center>
                 <h1 style={{color:'navy'}}><ReactTypical
@@ -173,12 +257,26 @@ export default function Audio()  {
                 checkboxSelection
                 disableSelectionOnClick
                 onCellClick={(columns) =>
-                  test_sounds.map((i,index)=> {
-                    console.log(columns)
-                    if(columns.field == "Sounds"){
-                    if(index==(columns.row.id-1))
-                    {i();}}
-                  })}
+                  //console.log(columns)
+                  {                  
+                      if(columns.field == "Sounds")
+                    {
+                      //console.log(columns.row.id-1)
+                      playz(audioClips,columns.row.id-1);
+                        // if(index==(columns.row.id-1))
+                        //   {
+                        //     console.log(columns.row.FileName)
+                        //   }
+                    }
+                  }
+                  // test_sounds.map((i,index)=> {
+                  //   console.log(columns)
+                  //   if(columns.field == "Sounds"){
+                  //   if(index==(columns.row.id-1))
+                  //   {i();
+                  //     console.log(columns.row.FileName)}}
+                  // })
+                }
             />
             <br></br>
             {/* <ul>
@@ -186,11 +284,13 @@ export default function Audio()  {
                     return <li key={index}>{item}</li>
                 })}
             </ul> */}
+             {/* {a.RenderButtonSound(audioClips)}
+             {a.RenderButtonSoundByFile(audioClips,2)} */}
             <center>
             Sound list on Spot
             </center>
             <br></br>
-            <DataGrid
+            {/* <DataGrid
                 rows={rows}
                 columns={columns}
                 pageSize={5}
@@ -207,8 +307,9 @@ export default function Audio()  {
                   // })
                 }
                   //  Play_sound(columns.row.FileName)}
-            />
-            <p>{test_sounds.length}</p>
+            /> */}
+            {/* <p>{test_sounds.length}</p> */}
+           
     </div>
     
   );

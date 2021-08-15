@@ -22,7 +22,7 @@ function getWindowDimensions() {
 
 export default function sidebar() {
     const { height, width } = getWindowDimensions();
-    console.log({height},{width},'hello')
+    //console.log({height},{width},'hello')
     var wna = 70;
     var w = 60;
     if(width<720){
