@@ -2,3 +2,9 @@
     font-size: 40px;
     color:aqua;
 }
+.home1{
+    flex: 4;
+    width:100%;
+    background-color: aqua;
+    height: 100%;
+}

@@ -8,6 +8,7 @@ import { ReactTypical } from '@deadcoder0904/react-typical'
 import useSound from 'use-sound';
 import { Component } from 'react';
 import { Howl } from 'howler';
+import "./audio.css"
 
 class App extends Component {
   soundPlay = (src) => {
@@ -41,6 +42,32 @@ class App extends Component {
   }
 }
 
+function upload_file(filename){
+  //console.log('upload function',filename)
+  const response = fetch("/upload_audio", {
+    method: "POST",
+    headers: {
+    'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify(filename)
+    })
+    if (response.ok){
+    console.log("it worked")
+    }
+}
+
+function play_sound_spot_by_var(filename){
+  const response = fetch("/play_spot_audio", {
+    method: "POST",
+    headers: {
+    'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify(filename)
+    })
+    if (response.ok){
+    console.log("it worked")
+    }
+}
 function GetInfo() {
     const [wavelist, setWaveList] = useState([]);
     const [durationlist, setDurationList] = useState([]);
@@ -54,20 +81,18 @@ function GetInfo() {
     //console.log(result)
     return result
   }
-
-  const ButtonFormatter = ({i}) => {
-    console.log(i)
-    // return audioClips.map((soundObj,index)=>{
-    //   if(index==i){
-    //   return(
-    //     <Button variant="contained" color="default" startIcon={<PlayCircleFilledWhiteIcon />} key={index} onClick={()=>this.soundPlay(soundObj.sound)}>
-    //       {soundObj.label}
-    //     </Button>
-    //   )}
-    // }
-    // )
-  };
-
+  
+  function GetSpotInfo() {
+    const [spotlist, setSpotList] = useState([]);
+    useEffect(() => {
+        fetch('/get_spot_list').then(res => res.json()).then(data => {
+          setSpotList(data.spot_list);
+        });
+      }, []);
+    const result = [spotlist]
+    //console.log(result[0][0])
+    return result
+  }
   
   function playz(audioClips,i){
     const a = new App();
@@ -132,6 +157,47 @@ const columns = [
     sortable: false,
     width: 180,
     editable: false,
+    // valueGetter: (params) =>
+    //   `${params.getValue(params.id, 'SoundList') || ''} ${
+    //     params.getValue(params.id, 'FileName') || ''
+    // //   }`,
+    renderCell: (params) => {
+        return (
+            <Button
+            variant="contained"
+            color="default"
+            startIcon={<PlayCircleFilledWhiteIcon />}
+            >
+              Play
+            </Button>
+            )
+    }
+  }
+  // },{
+  //   field: 'Content',
+  //   headerName: 'Content',
+  //   width: 140,
+  //   editable: false,
+  //   sortable: false,
+  //   // type: 'number',
+  // },
+];
+
+const columns_spot = [
+  { field: 'id', headerName: 'ID', width: 120 },
+  {
+    field: 'SoundList',
+    headerName: 'SoundList',
+    width: 200,
+    editable: true,
+  },
+  {
+    field: 'Sounds',
+    headerName: 'Play Sounds on Spot',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 200,
+    editable: false,
     // renderCell: ButtonFormatter
     // valueGetter: (params) =>
     //   `${params.getValue(params.id, 'SoundList') || ''} ${
@@ -148,21 +214,8 @@ const columns = [
             </Button>
             )
     }
-  },{
-    field: 'Content',
-    headerName: 'Content',
-    width: 140,
-    editable: false,
-    sortable: false,
-    // type: 'number',
-  },
+  }
 ];
-
-function Play_sounds(value){
-  console.log(value)
-  const [play] = useSound(process.env.PUBLIC_URL + value);
-  play();
-};
 
 // const audioClips = [
 //   {sound: process.env.PUBLIC_URL + 'autonomous_robot_en.wav',label:'autonomous_robot_en'},
@@ -173,60 +226,32 @@ function Play_sounds(value){
 export default function Audio()  {
     const list_wave = GetInfo()[0]
     const list_duration = GetInfo()[1]
+    const list_spot = GetSpotInfo()[0]
     var rows = []
-    var test_sounds = []
+    var rows_spot = []
+    //var test_sounds = []
     
     var audioClips = []
     list_wave.map((item,index)=>{
       audioClips.push({sound: process.env.PUBLIC_URL + item,label:item})
+    })
+    
+    list_spot.map((item,index)=>{
+      rows_spot.push({id:index+1,SoundList:item})
     })
     // const audioClips = [
     //   {sound: process.env.PUBLIC_URL + 'autonomous_robot_en.wav',label:'autonomous_robot_en'},
     //   {sound: process.env.PUBLIC_URL + 'spot_real_time.wav',label:'spot_real_time'}]
     
     
-    //console.log(list_wave)
-    //const [play] = useSound(process.env.PUBLIC_URL + list_wave);
-  
-    //const [play2] = useSound(process.env.PUBLIC_URL + 'autonomous_robot_en.wav');
-    //test_sounds.push(play)
-    
-    //test_sounds.push(play2)
-    
-    // test_sounds.map((i,index)=> {
-    //   if(index==1)
-    //   {i();}
-    // })
-    
-    function Play_sound(value){
-      const [playing] = useSound(process.env.PUBLIC_URL + value);
-      //console.log(value)
-      //test_sounds.push(playing)
-      playing();
-    }
-    //console.log(typeof(list[0]))
-    //Play_sound(list[0]);
-    //Play_sound(list[1]);
-    
-  
-    
-    
-    // list_wave.map((item,index)=>{
-    //   const [temp_play] = useSound(process.env.PUBLIC_URL + item);
-    //   test_sounds.push(temp_play)
-    // })
     const a = new App();
     list_wave.map((item,index)=>{
-        rows.push({ id: index+1, FileName: item , SoundList: item.split('.')[0], Duration: list_duration[index], Action: 'Playing', Sounds:a.RenderButtonSoundByFile(audioClips,index)})
+        rows.push({ id: index+1, FileName: item , SoundList: item.split('.')[0], Duration: list_duration[index], Action: 'Playing'})
     })
     
-    
-    
-    
-    
-    
     return (
-        <div style={{ height: '50vh', width: '100%' }}>
+        // <div style={{ height: '50vh', width: '100%' }}>
+        <div className='home1'>
             <br></br>
             <center>
                 <h1 style={{color:'navy'}}><ReactTypical
@@ -256,6 +281,7 @@ export default function Audio()  {
                 pageSize={5}
                 checkboxSelection
                 disableSelectionOnClick
+                style={{ height: '40vh', width: '100%' }}
                 onCellClick={(columns) =>
                   //console.log(columns)
                   {                  
@@ -268,46 +294,39 @@ export default function Audio()  {
                         //     console.log(columns.row.FileName)
                         //   }
                     }
+                    else if(columns.field == "Action"){
+                      //console.log("upload",columns.row.FileName)
+                      upload_file(columns.row.FileName);
+                    }
                   }
-                  // test_sounds.map((i,index)=> {
-                  //   console.log(columns)
-                  //   if(columns.field == "Sounds"){
-                  //   if(index==(columns.row.id-1))
-                  //   {i();
-                  //     console.log(columns.row.FileName)}}
-                  // })
                 }
             />
             <br></br>
-            {/* <ul>
-                        {list_wave.map((item,index)=>{
-                    return <li key={index}>{item}</li>
-                })}
-            </ul> */}
              {/* {a.RenderButtonSound(audioClips)}
              {a.RenderButtonSoundByFile(audioClips,2)} */}
             <center>
             Sound list on Spot
             </center>
             <br></br>
-            {/* <DataGrid
-                rows={rows}
-                columns={columns}
+            <DataGrid
+                rows={rows_spot}
+                columns={columns_spot}
                 pageSize={5}
                 checkboxSelection
                 disableSelectionOnClick
+                style={{ height: '40vh', width: '100%' }}
                 onCellClick={(columns) =>
-                  
-                  Play_sound(columns.row.FileName)
-                  // test_sounds.map((i,index)=> {
-                  //   //console.log(columns)
-                  //   if(columns.field == "Sounds"){
-                  //   if(index==(columns.row.id-1))
-                  //   {i();}}
-                  // })
+                  //console.log(columns)
+                  {                  
+                      if(columns.field == "Sounds")
+                        {
+                          console.log(columns.row.SoundList)
+                          play_sound_spot_by_var(columns.row.SoundList)
+                        }
+                  }
                 }
-                  //  Play_sound(columns.row.FileName)}
-            /> */}
+                
+            />
             {/* <p>{test_sounds.length}</p> */}
            
     </div>
